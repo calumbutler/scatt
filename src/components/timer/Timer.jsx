@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import './Timer.css';
-import dingmp3 from 'ding.mp3';
+import dingmp3 from './ding.mp3';
+
+console.log(dingmp3)
+
+const startTime = 180;
 
 class Timer extends Component {
   state = {
-    time: 180,
+    time: startTime,
   }
 
   reset = () => {
     clearInterval(this.interval);
 
-    this.setState({ time: 180 });
+    this.setState({ time: startTime });
   }
 
   startTimer = () => {
@@ -36,14 +40,14 @@ class Timer extends Component {
     return (
       <div className="Timer">
           <h4>{`${minutes}:${seconds}`}</h4>
-          { (time === 180)
+          { (time === startTime)
             &&
             <button onClick={() => this.startTimer()}>
               Start Timer
             </button>
           }
 
-          { (time < 180)
+          { (time < startTime)
             &&
             <button onClick={() => this.reset()}>
               Reset
@@ -51,8 +55,7 @@ class Timer extends Component {
           }
           { (time === 0) &&
             <div>
-              <audio className="audio-element">
-                <source src="dingmp3"></source>
+              <audio src={dingmp3} autoplay="true" className="audio-element">
               </audio>
             </div>
           }
